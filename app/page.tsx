@@ -1,15 +1,20 @@
 import FuelTable from "@/components/FuelTable";
-// import { BACKGROUNDS } from "@/constants/ui";
-import { getStableBg } from "@/lib/bg";
+import { BACKGROUNDS } from "@/constants/ui";
 import { getFuel, getFuelHistory } from "@/services/fuel.service";
 
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Giá xăng dầu hôm nay    aaaaa",
+    description:
+        "Cập nhật giá xăng dầu mới nhất tại Việt Nam, bao gồm RON95 và dầu diesel.",
+};
+
+const bg = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
+
 export default async function Page() {
-    // const bg = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
-
-    const bg = await getStableBg(); // ✅ nhớ await
-
     const [fuel, history] = await Promise.all([
         getFuel(),
         getFuelHistory(),
