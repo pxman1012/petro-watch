@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Giá xăng dầu hôm nay    aaaaa",
+    title: "Giá xăng dầu hôm nay",
     description:
         "Cập nhật giá xăng dầu mới nhất tại Việt Nam, bao gồm RON95 và dầu diesel.",
 };
