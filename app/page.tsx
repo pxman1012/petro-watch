@@ -1,11 +1,14 @@
-import { BACKGROUNDS } from "@/constants/ui";
+import FuelTable from "@/components/FuelTable";
+// import { BACKGROUNDS } from "@/constants/ui";
+import { getStableBg } from "@/lib/bg";
 import { getFuel, getFuelHistory } from "@/services/fuel.service";
 
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-    const bg =
-        BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
+    // const bg = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
+
+    const bg = await getStableBg(); // ✅ nhớ await
 
     const [fuel, history] = await Promise.all([
         getFuel(),
@@ -27,39 +30,7 @@ export default async function Page() {
                     </h1>
 
                     {/* TABLE */}
-                    <div className="overflow-x-auto">
-                        <table className="w-full border border-gray-300 text-sm">
-                            <thead className="bg-gray-100">
-                                <tr>
-                                    <th className="p-3 text-left">Mặt hàng</th>
-                                    <th className="p-3 text-right">Giá (đồng/lít)</th>
-                                    <th className="p-3 text-right">So với kỳ trước</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {fuel.map((item) => (
-                                    <tr key={item.name} className="border-t">
-                                        <td className="p-3">{item.name}</td>
-
-                                        <td className="p-3 text-right font-medium">
-                                            {item.price.toLocaleString()}
-                                        </td>
-
-                                        <td
-                                            className={`p-3 text-right font-medium ${item.diff > 0
-                                                    ? "text-red-500"
-                                                    : "text-green-600"
-                                                }`}
-                                        >
-                                            {item.diff > 0 ? "+" : ""}
-                                            {item.diff.toLocaleString()}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    <FuelTable data={fuel} />
 
                     {/* CHART */}
                     {/* <FuelChart data={history} /> */}

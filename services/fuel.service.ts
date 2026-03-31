@@ -1,11 +1,11 @@
 import { FuelItem, FuelHistory } from "@/interfaces/fuel";
 
-const BASE_URL =
-    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 
 // GET current fuel
 export async function getFuel(): Promise<FuelItem[]> {
     const res = await fetch(`${BASE_URL}/api/fuel`, {
+        // const res = await fetch("/api/fuel", {                                   // Dùng relative path để tận dụng cache của Next.js và tránh lỗi CORS khi chạy local
         cache: "no-store",
     });
 
@@ -20,6 +20,7 @@ export async function getFuel(): Promise<FuelItem[]> {
 // GET history
 export async function getFuelHistory(): Promise<FuelHistory[]> {
     const res = await fetch(`${BASE_URL}/api/fuel/history`, {
+        // const res = await fetch(`/api/fuel/history`, {                            // Dùng relative path để tận dụng cache của Next.js và tránh lỗi CORS khi chạy local
         next: { revalidate: 3600 },
     });
 
