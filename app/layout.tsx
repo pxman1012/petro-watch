@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import AdSense from "@/components/AdSense";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -64,6 +65,10 @@ export default function RootLayout({
             lang="en"
             className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
         >
+            <head>
+                <AdSense pId={process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID || ''} />
+            </head>
+
             <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
         </html>
     );
