@@ -7,4 +7,10 @@ export interface FuelItem {
 export interface FuelResponse {
     source: "cache" | "live";
     data: FuelItem[];
+    note: string | null; // 👈 thêm
 }
+
+export type CacheData = {
+    data: FuelItem[];
+    note: string | null;
+};

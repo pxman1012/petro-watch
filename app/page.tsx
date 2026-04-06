@@ -20,6 +20,9 @@ export default async function Page() {
         getFuelHistory(),
     ]);
 
+    // console.log({ fuel })
+    const { data, note } = fuel;
+
     return (
         <main
             className="min-h-screen bg-cover bg-center"
@@ -32,10 +35,15 @@ export default async function Page() {
 
                     <h1 className="text-3xl font-bold text-center mb-8">
                         Giá bán lẻ xăng dầu hôm nay
+                        {note && (
+                            <p className="text-sm text-gray-600 text-center mb-4">
+                                {note}
+                            </p>
+                        )}
                     </h1>
 
                     {/* TABLE */}
-                    <FuelTable data={fuel} />
+                    <FuelTable data={data} />
 
                     {/* CHART */}
                     {/* <FuelChart data={history} /> */}

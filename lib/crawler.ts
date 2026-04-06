@@ -2,7 +2,11 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import { FuelItem } from "@/types/fuel";
 
-export async function crawlFuel(): Promise<FuelItem[]> {
+function parseNumber(str: string): number {
+    return Number(str.replace(/\./g, "").replace(/[^\d-]/g, ""));
+}
+
+export async function crawlFuel() {
     const { data } = await axios.get<string>(
         "https://vnexpress.net/chu-de/gia-xang-dau-3026",
         {
@@ -12,8 +16,10 @@ export async function crawlFuel(): Promise<FuelItem[]> {
     );
 
     const $ = cheerio.load(data);
+
     const result: FuelItem[] = [];
 
+    // 📌 crawl bảng
     $("div.fck_detail.taxonomy_seo table tbody tr").each((_, el) => {
         const tds = $(el).find("td");
 
@@ -28,9 +34,19 @@ export async function crawlFuel(): Promise<FuelItem[]> {
         }
     });
 
-    return result;
-}
+    // 📌 lấy note (raw text)
+    let note: string | null = null;
 
-function parseNumber(str: string): number {
-    return Number(str.replace(/\./g, "").replace(/[^\d-]/g, ""));
+    const rawText = $("div.fck_detail").text();
+
+    const match = rawText.match(/Giá từ[^\n]+/);
+
+    if (match) {
+        note = match[0].trim();
+    }
+
+    return {
+        data: result,
+        note,
+    };
 }

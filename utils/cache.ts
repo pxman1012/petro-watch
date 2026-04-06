@@ -1,11 +1,11 @@
-import { FuelItem } from "@/types/fuel";
+import { CacheData } from "@/types/fuel";
 
-let cache: FuelItem[] | null = null;
+let cache: CacheData | null = null;
 let lastFetch = 0;
 
 const TTL = 5 * 60 * 1000; // 5 phút
 
-export function getCache(): FuelItem[] | null {
+export function getCache(): CacheData | null {
     const now = Date.now();
 
     if (cache && now - lastFetch < TTL) {
@@ -15,7 +15,7 @@ export function getCache(): FuelItem[] | null {
     return null;
 }
 
-export function setCache(data: FuelItem[]): void {
+export function setCache(data: CacheData): void {
     cache = data;
     lastFetch = Date.now();
 }
