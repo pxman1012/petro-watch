@@ -25,6 +25,12 @@ export const metadata: Metadata = {
     description:
         "Theo dõi giá xăng dầu Việt Nam mới nhất, cập nhật nhanh chóng và chính xác.",
     keywords: [
+        'pxman',
+        'petro',
+        'pxman petro',
+        'petro watch',
+        'pxman petro watch',
+        'Pxman Petro Watch',
         "giá xăng",
         "giá dầu",
         "xăng dầu Việt Nam",
